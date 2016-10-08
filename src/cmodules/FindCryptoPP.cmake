@@ -1,46 +1,52 @@
-# - Find Crypto++
+# FindCrypto++ package
+#
+# Tries to find the Crypto++ library
+#
 
-if(CRYPTOPP_INCLUDE_DIR AND CRYPTOPPPYrORARIES)
-	set(CRYPTOPP_FOUND TRUE)
+find_package(PkgConfig)
 
-else(CRYPTOPP_INCLUDE_DIR AND CRYPTOPP_LIBRARIES)
-	find_path(CRYPTOPP_INCLUDE_DIR
-		NAMES
-			cryptlib.h
-		PATHS
-			/usr/include/crypto++
-		/usr/include/cryptopp
-		/usr/local/include/crypto++
-		/usr/local/include/cryptopp
-		/opt/local/include/crypto++
-		/opt/local/include/cryptopp
-		$ENV{SystemDrive}/Crypto++/include
-	)
+include(LibFindMacros)
 
+# Include dir
+find_path(CryptoPP_INCLUDE_DIR
+	NAMES
+		crypto++/cryptlib.h cryptopp/cryptlib.h
+	PATHS
+		${CMAKE_CURRENT_SOURCE_DIR}/vendors/cryptopp
+		${CryptoPP_PKGCONF_INCLUDE_DIRS}
+		${CryptoPP_DIR}
+		$ENV{CryptoPP_DIR}
+		/usr/local/include
+		/usr/include
+	PATH_SUFFIXES
+		include
+		Release/include
+)
 
-find_library(CRYPTOPP_LIBRARIES
-		NAMES
-			libcryptopp.a
-			cryptopp
-			cryptlib
-		PATHS
-				/usr/lib
-				/usr/local/lib
-				/opt/local/lib
-				$ENV{SystemDrive}/Crypto++/lib
-				${CRYPTOPP_LIBRARIES_DIR}
-	)
+IF (NOT EXISTS "${CryptoPP_INCLUDE_DIR}/crypto++/cryptlib.h" AND EXISTS "${CryptoPP_INCLUDE_DIR}/cryptopp/cryptlib.h")
+		SET(USE_CRYPTO_PP true)
+ENDIF()
 
+# Library
+find_library(CryptoPP_UTILS_LIBRARY
+	NAMES
+		cryptopp cryptlib
+	PATHS
+		${CMAKE_CURRENT_SOURCE_DIR}/vendors/cryptopp/crypto++
+		${CMAKE_CURRENT_SOURCE_DIR}/vendors/cryptopp/crypto++/Win32/Output
+		${CryptoPP_PKGCONF_LIBRARY_DIRS}
+		${CryptoPP_DIR}
+		$ENV{CryptoPP_DIR}
+		/usr/local
+		/usr
+	PATH_SUFFIXES
+		build
+		lib
+		Debug
+		Release
+)
 
-if(CRYPTOPP_INCLUDE_DIR AND CRYPTOPP_LIBRARIES)
-	set(CRYPTOPP_FOUND TRUE)
-	message(STATUS "Found Crypto++: ${CRYPTOPP_INCLUDE_DIR}, ${CRYPTOPP_LIBRARIES}")
-else(CRYPTOPP_INCLUDE_DIR AND CRYPTOPP_LIBRARIES)
-	message(STATUS "Found: ${CRYPTOPP_INCLUDE_DIR}")
-	set(CRYPTOPP_FOUND FALSE)
-		message(STATUS "Crypto++ not found.")
-	endif(CRYPTOPP_INCLUDE_DIR AND CRYPTOPP_LIBRARIES)
+set(CryptoPP_PROCESS_LIBS CryptoPP_LIBRARY CryptoPP_UTILS_LIBRARY)
+set(CryptoPP_PROCESS_INCLUDES CryptoPP_INCLUDE_DIR)
+libfind_process(CryptoPP)
 
-	mark_as_advanced(CRYPTOPP_INCLUDE_DIR CRYPTOPP_LIBRARIES)
-
-endif(CRYPTOPP_INCLUDE_DIR AND CRYPTOPP_LIBRARIES)
