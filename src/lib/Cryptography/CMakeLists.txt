@@ -1,4 +1,4 @@
-cmake_minimum_required(version 2.8.2)
+cmake_minimum_required(VERSION 2.8.2)
 
 find_package(GMP REQUIRED)
 
