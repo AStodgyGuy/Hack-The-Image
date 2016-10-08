@@ -7,6 +7,8 @@
 #include <exception>
 #include <cstring>
 
+#define exception(x) exception()
+
 using namespace std;
 
 //Rijndael (pronounced Reindaal) is a block cipher, designed by Joan Daemen and Vincent Rijmen as a candidate algorithm for the AES.
