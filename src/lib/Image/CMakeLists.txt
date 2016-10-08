@@ -10,5 +10,4 @@ file(GLOB
 
 add_library(imgface STATIC ${IMAGE_SRC})
 include_directories(. ${CIMG_INCLUDE_DIRS})
-
 target_link_libraries(imgface ${CIMG_LIBRARIES})
