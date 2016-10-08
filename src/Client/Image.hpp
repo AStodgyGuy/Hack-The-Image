@@ -1,11 +1,13 @@
-#ifndef IMAGE_HPP_OK3MC4DQ
-#define IMAGE_HPP_OK3MC4DQ
+#pragma once
 
 #include <cstdint>
 #include <string>
 
 
-typedef int32_t vec4;
+typedef struct _col_t {
+	char r, g, b, a;
+} col_t;
+
 
 class Image {
 protected:
@@ -14,15 +16,12 @@ protected:
 public:
 	Image(const std::string filename);
 	virtual ~Image ();
-	virtual void load() = 0;
-	bool is_loaded();
+	virtual void Load() = 0;
+	bool IsLoaded();
 };
 
 
 class BMPImage : public Image {
 public:
-	void load();
+	void Load();
 };
-
-
-#endif
