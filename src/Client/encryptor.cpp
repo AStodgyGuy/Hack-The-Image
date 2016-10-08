@@ -20,7 +20,8 @@ int main() {
 	msg = aes.Encrypt(msg, "0123456789012345");
 	new_image.EncryptMessage(msg);
 
-	std::string output = filename + ".out";
+	/* std::string output = filename + ".out"; */
+	std::string output = "screenshot.png";
 	new_image.Save(output);
 
 	std::cout << output << std::endl;
