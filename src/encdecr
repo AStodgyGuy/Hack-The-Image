@@ -1,0 +1,6 @@
+#!/bin/sh -v
+
+cd ./Client
+
+../bin/encryptor
+../bin/decryptor

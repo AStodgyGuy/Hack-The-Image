@@ -22,7 +22,7 @@ import java.lang.Number;
 
 public class Client {
 	public static Socket clientSocket = null;
-	
+
 	public static void connect(int port) {
 		try {
 			InetAddress ipHost = InetAddress.getByName("138.251.29.227");
@@ -31,10 +31,10 @@ public class Client {
 		}
 		catch(IOException e) {
 			closeConnection();
-			System.out.println("Could not connect");			
+			System.out.println("Could not connect");
 		}
 	}
-	
+
 	public static void closeConnection() {
 		try {
 			clientSocket.close();
@@ -43,70 +43,71 @@ public class Client {
 			System.out.println("Could not close");
 		}
 	}
-	
+
 	public static void sendImage() {
-		
+
 		try {
 			OutputStream outStream = clientSocket.getOutputStream();
-			
+
 			byte[] receiverIP = null;
-			
-			BufferedImage image = ImageIO.read(new File("screenshot.png")); //need to read image								
-			ByteArrayOutputStream byteArrOutStream = new ByteArrayOutputStream();			
-			
-			ImageIO.write(image, "png", byteArrOutStream);			
-			
+
+			BufferedImage image = ImageIO.read(new File("screenshot.png")); //need to read image
+			ByteArrayOutputStream byteArrOutStream = new ByteArrayOutputStream();
+
+			ImageIO.write(image, "png", byteArrOutStream);
+
 			byte[] imageSize = ByteBuffer.allocate(4).putInt(byteArrOutStream.size()).array();
-			
+
 			//outStream.write(receiverIP);
 			outStream.write(imageSize);
 			outStream.write(byteArrOutStream.toByteArray());
-			outStream.flush();			
-			
-			System.out.println("sent");			
-			
+			outStream.flush();
+
+			System.out.println("sent");
+
 		} catch (IOException e) {
 			closeConnection();
 			System.out.println("Something went wrong");
 		}
 	}
-	
+
 	public static void receiveImage() {
 		try {
 			InputStreamReader inStream = new InputStreamReader(clientSocket.getInputStream());
-			BufferedReader in = new BufferedReader(inStream);									
-			
+			BufferedReader in = new BufferedReader(inStream);
+
 			char[] response = new char[1000];
 			int n = in.read(response, 0, 1000);
-			
+
 			System.out.println(response.toString());
-			
+
 			byte[] receivedImageArray = new String(response).getBytes();
-			
+
 			ByteArrayInputStream is = new ByteArrayInputStream(receivedImageArray);
 			BufferedImage image = ImageIO.read(is);
-			
+
 			System.out.println("received");
-			
+
 		} catch (IOException e) {
 			closeConnection();
 			System.out.println("Something went wrong");
+			System.out.print(e.getMessage());
 		}
 	}
-	
-	
+
+
 	public static void main(String[] args) {
 		int port = Integer.parseInt(args[0]);
 		connect(port);
-		
-		if (args[1] == "send") {
+
+		if (args[1].equals("send")) {
 			sendImage();
 		}
-		
-		if (args[1] == "recieve") {
+
+		if (args[1].equals("recieve")) {
 			receiveImage();
 		}
-		
+
 		closeConnection();
 	}
 }

@@ -5,6 +5,7 @@ include
 *.dylib
 *.pyc
 *.class
+*.png
 CMakeFiles
 cmake_install.cmake
 CMakeCache.txt

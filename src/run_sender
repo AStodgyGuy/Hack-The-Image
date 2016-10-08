@@ -4,7 +4,15 @@
 
 cd ./Client
 javac userInterface.java Client.java
+
 ../bin/server &
+PIDSERVER=$?
+
 java userInterface > data
 cat data | ../bin/encryptor | java Client 10000 send
+
 java Client 10001 receive | ../bin/decryptor
+
+kill $PIDSERVER
+
+exit 0
