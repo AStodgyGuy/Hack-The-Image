@@ -132,12 +132,22 @@ public class userInterface extends JFrame {
             }
         });
         
+        BUT_Switch.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                BUT_SendActionPerformed(evt);
+            }
+        });
+        
         
         
         
         
         pack();
     }
+	
+	public void BUT_SwitchFileActionPerformed(ActionEvent evt) {
+		Receiver receiver = new Receiver();
+	}
 	
 	//runs initcomponents
 	public userInterface(){

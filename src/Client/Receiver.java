@@ -83,6 +83,12 @@ public class Receiver extends JFrame {
                 .addComponent(BUT_Outbox, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29))
         );
+        
+        BUT_Outbox.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                BUT_SendActionPerformed(evt);
+            }
+        });
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -93,6 +99,8 @@ public class Receiver extends JFrame {
     	application.setVisible(true);
     	
     }
+    
+    
 
     
 
