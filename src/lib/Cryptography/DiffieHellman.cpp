@@ -1,27 +1,29 @@
-#include <DiffieHellman.h>
+#include <DiffieHellman.hpp>
 
 #include <gmpxx.h>
 
 DiffieHellman::DiffieHellman(int base, int modulus) :   g(base), p(modulus) {}
 
-int ModExp(int base, int exponent, int mod)
+int DiffieHellman::mod_exp(int base, int exponent, int mod)
 {
     mpz_class a = 1;
-    for (int i = 0; i < exponent)
+    for (int i = 0; i < exponent; i++)
     {
         a *= base;
     }
-    return (a % mod).get_ui();
+    a %= mod;
+
+    return a.get_si();
 }
 
 
-DiffieHellman::getIntermediateKey(int a)
+int DiffieHellman::getIntermediateKey(int a)
 {
     priv = a;
-    return ModExp(g, a, p);
+    return mod_exp(g, a, p);
 }
 
-DiffieHellman::getFinalKey(int B)
+int DiffieHellman::getFinalKey(int B)
 {
-    return ModExp(B, priv, p);
+    return mod_exp(B, priv, p);
 }
