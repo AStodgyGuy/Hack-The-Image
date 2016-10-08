@@ -14,6 +14,7 @@ protected:
 public:
 	Image(const std::string filename);
 	~Image();
+	int operator[] (const size_t y);
 
 	void Print();
 };

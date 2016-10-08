@@ -10,6 +10,11 @@ Image::Image(const std::string filename):
 Image::~Image() {
 }
 
+int Image::operator[] (const size_t y) {
+	return cimage[y % cimage.height()];
+}
+
+
 void Image::Print() {
 	for(int i = 0; i < cimage.height(); ++i) {
 		for(int j = 0; j < cimage.width(); ++j) {
