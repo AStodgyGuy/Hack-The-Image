@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8.2)
 
 find_package(GMP REQUIRED)
-find_package(CRYPTOPP REQUIRED)
+find_package(CryptoPP REQUIRED)
 
 
 file(GLOB
