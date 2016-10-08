@@ -4,7 +4,7 @@
 #	CIMG_FOUND - system has CIMG
 #	CIMG_INCLUDE_DIRS - the CIMG include directories
 
-IF( CIMG_FOUND )
+IF(CIMG_FOUND)
 	 # in cache already
 	 SET( CIMG_FIND_QUIETLY TRUE )
 ENDIF()
@@ -15,7 +15,7 @@ include(LibFindMacros)
 libfind_pkg_check_modules(CIMG_PKGCONF CIMG)
 
 # Include dir
-find_path(CImg_INCLUDE_DIR
+find_path(CIMG_INCLUDE_DIR
 	NAMES CImg.h
 	PATHS ${CIMG_PKGCONF_INCLUDE_DIRS}
 )
