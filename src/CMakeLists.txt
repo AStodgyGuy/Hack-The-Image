@@ -6,6 +6,6 @@ set(HACK_ROOT ${CMAKE_CURRENT_SOURCE_DIR})
 set(HACK_LIB ${HACK_ROOT}/lib)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${HACK_ROOT}/bin)
-set(CMAKE_MODULE_PATH ${HACK_ROOT}/modules)
+set(CMAKE_MODULE_PATH ${HACK_ROOT}/cmodules)
 
 add_subdirectory(./lib)
