@@ -1,0 +1,7 @@
+#!/bin/sh -v
+
+CXX=c++
+CFLAGS="-std=c++11 -O3"
+OBJECTS="*.cpp"
+
+$CXX $CFLAGS $OBJECTS
