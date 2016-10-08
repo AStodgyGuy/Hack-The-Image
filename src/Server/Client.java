@@ -1,7 +1,13 @@
 import java.net.ServerSocket;
 import java.net.Socket;
+
+import javax.imageio.ImageIO;
+
 import java.net.InetAddress;
 import java.io.*;
+import java.nio.ByteBuffer;
+import java.awt.image.BufferedImage;
+import java.lang.Number;
 
 /*
  * get image bufferedimage reader
@@ -15,20 +21,21 @@ import java.io.*;
 
 
 public class Client {
-	Socket clientSocket = null;
+	public static Socket clientSocket = null;
 	
-	public boolean connect() {
+	public static void connect(int port) {
 		try {
 			InetAddress ipHost = InetAddress.getByName("138.251.29.227");
-			clientSocket = new Socket(ipHost, 10000);
+			clientSocket = new Socket(ipHost, port);
 			System.out.println("Connected..");
 		}
 		catch(IOException e) {
+			closeConnection();
 			System.out.println("Could not connect");			
 		}
 	}
 	
-	public void closeConnection() {
+	public static void closeConnection() {
 		try {
 			clientSocket.close();
 		}
@@ -37,13 +44,60 @@ public class Client {
 		}
 	}
 	
-	public boolean sendImage() {
-		BufferedImage image;
-		OutputStream outStream = new OutputStream;
+	public static void sendImage() {
+		
+		try {
+			OutputStream outStream = clientSocket.getOutputStream();
+			
+			byte[] receiverIP = null;
+			
+			BufferedImage image = ImageIO.read(new File("screenshot.png")); //need to read image								
+			ByteArrayOutputStream byteArrOutStream = new ByteArrayOutputStream();			
+			
+			ImageIO.write(image, "png", byteArrOutStream);			
+			
+			byte[] imageSize = ByteBuffer.allocate(4).putInt(byteArrOutStream.size()).array();
+			
+			//outStream.write(receiverIP);
+			outStream.write(imageSize);
+			outStream.write(byteArrOutStream.toByteArray());
+			outStream.flush();			
+			
+			//test			
+			
+		} catch (IOException e) {
+			closeConnection();
+			System.out.println("Something went wrong");
+		}
+	}
+	
+	public static void receiveImage() {
+		try {
+			InputStreamReader inStream = new InputStreamReader(clientSocket.getInputStream());
+			BufferedReader in = new BufferedReader(inStream);									
+			
+			char[] response = new char[1000];
+			int n = in.read(response, 0, 1000);
+			
+			System.out.println(response.toString());
+			
+			byte[] receivedImageArray = new String(response).getBytes();
+			
+			ByteArrayInputStream is = new ByteArrayInputStream(receivedImageArray);
+			BufferedImage image = ImageIO.read(is);
+			
+		} catch (IOException e) {
+			closeConnection();
+			System.out.println("Something went wrong");
+		}
 	}
 	
 	
 	public static void main(String[] args) {
-		
+		int port = Integer.parseInt(args[0]);
+		connect(port);
+		sendImage();
+		receiveImage();
+		closeConnection();
 	}
 }
