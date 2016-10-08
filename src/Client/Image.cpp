@@ -4,15 +4,17 @@
 #include <cstdlib>
 
 Image::Image(const std::string filename):
-	filename_(filename)
+	filename_(filename), cimage(filename.c_str())
 {}
 
 Image::~Image() {
-	if(IsLoaded())
-		free(data_);
 }
 
-
-bool Image::IsLoaded() {
-	return data_ == NULL;
+void Image::Print() {
+	for(int i = 0; i < cimage.height(); ++i) {
+		for(int j = 0; j < cimage.width(); ++j) {
+			printf("%X ", cimage[i * cimage.width() + j]);
+		}
+		printf("\n");
+	}
 }

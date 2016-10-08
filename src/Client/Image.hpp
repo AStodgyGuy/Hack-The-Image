@@ -1,27 +1,19 @@
 #pragma once
 
+#include <CImg.h>
+
 #include <cstdint>
 #include <string>
 
-
-typedef struct _col_t {
-	char r, g, b, a;
-} col_t;
-
+using namespace cimg_library;
 
 class Image {
 protected:
+	CImg <unsigned char> cimage;
 	const std::string filename_;
-	void *data_ = NULL;
 public:
 	Image(const std::string filename);
-	virtual ~Image ();
-	virtual void Load() = 0;
-	bool IsLoaded();
-};
+	~Image();
 
-
-class BMPImage : public Image {
-public:
-	void Load();
+	void Print();
 };
