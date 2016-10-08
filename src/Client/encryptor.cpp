@@ -4,15 +4,17 @@
 #include <Image.hpp>
 #include <AES.hpp>
 
+#define CLIENT1PORT 10000
+#define CLIENT2PORT 10001
+
 int main() {
 	std::string ip;
-	getline(line);
-	std::cout << line << std::endl;
+	std::getline(std::cin, ip);
 	std::string filename;
-	getline(filename);
+	std::getline(std::cin, filename);
 	Image new_image(filename);
 	std::string msg;
-	getline(msg);
+	std::getline(std::cin, msg);
 
 	AES aes;
 	msg = aes.Encrypt(msg, "0123456789012345");
@@ -20,5 +22,6 @@ int main() {
 
 	std::string output = filename + ".out";
 	new_image.Save(output);
+
 	std::cout << output << std::endl;
 }

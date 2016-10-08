@@ -1,0 +1,7 @@
+#!/bin/sh
+
+./compile
+
+cd ./Client
+javac userInterface.java Client.java
+java userInterface | ../bin/encryptor | java Client
