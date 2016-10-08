@@ -25,13 +25,11 @@ class Server {
     //SOCKET listener = INVALID_SOCKET;
     int listener;
     sockaddr_in addr;
-
-    public:
-        int listenOnPort(int port);
-        void closeConnection(void);
-        sockaddr_in getAddrInfo(void);
-        int getListener(void);
-
+public:
+    int listenOnPort(int port);
+    void closeConnection(void);
+    sockaddr_in getAddrInfo(void);
+    int getListener(void);
 };
 
 int Server::listenOnPort(int port) {
@@ -184,7 +182,7 @@ int main() {
             printf("Error when accepting");
         }
         else {
-            printf("connected");
+            printf("connected\n");
             //process(readDesc);
             //pid = fork();
             
@@ -202,20 +200,21 @@ int main() {
             if (readOutputSize < 0) {
                 printf("Error When reading 1");
             }  
-            
+
             int j = 12;
             for(int i = 0; i < 4; i++) {
                 imageSize = imageSize + (int) imageSizeBuffer[i] << j;
                 j = j-4;
             }
 
-            char imageArray[imageSize];
+            char *imageArray = (char *)malloc(imageSize);
             readOutputImage = read(readDesc, imageArray, 255);
             if (readOutputImage < 0) {
                 printf("Error When reading 2");
-            }    
+            }
             
             createSocketToSend(imageSizeBuffer, imageArray);
+            free(imageArray);
         }
     //}
 

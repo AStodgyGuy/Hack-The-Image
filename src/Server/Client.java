@@ -63,7 +63,7 @@ public class Client {
 			outStream.write(byteArrOutStream.toByteArray());
 			outStream.flush();			
 			
-			//test			
+			System.out.println("sent");			
 			
 		} catch (IOException e) {
 			closeConnection();
@@ -86,6 +86,8 @@ public class Client {
 			ByteArrayInputStream is = new ByteArrayInputStream(receivedImageArray);
 			BufferedImage image = ImageIO.read(is);
 			
+			System.out.println("received");
+			
 		} catch (IOException e) {
 			closeConnection();
 			System.out.println("Something went wrong");
@@ -96,8 +98,15 @@ public class Client {
 	public static void main(String[] args) {
 		int port = Integer.parseInt(args[0]);
 		connect(port);
-		sendImage();
-		receiveImage();
+		
+		if (args[1] == "send") {
+			sendImage();
+		}
+		
+		if (args[1] == "recieve") {
+			receiveImage();
+		}
+		
 		closeConnection();
 	}
 }
