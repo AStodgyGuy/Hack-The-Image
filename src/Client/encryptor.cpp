@@ -1,18 +1,24 @@
 #include <iostream>
+#include <string>
 
 #include <Image.hpp>
 #include <AES.hpp>
 
 int main() {
-	const std::string
-		msg = "killmewithyourowntoes";
-	const std::string
-		input = "./input.png",
-		output = "./output.png";
-	Image img(input);
-	img.EncryptMessage(msg);
-	const std::string decr = img.DecryptMessage();
-	std::cout << decr.length() << std::endl;
-	std::cout << decr << std::endl;
-	img.Save(output);
+	std::string ip;
+	getline(line);
+	std::cout << line << std::endl;
+	std::string filename;
+	getline(filename);
+	Image new_image(filename);
+	std::string msg;
+	getline(msg);
+
+	AES aes;
+	msg = aes.Encrypt(msg, "0123456789012345");
+	new_image.EncryptMessage(msg);
+
+	std::string output = filename + ".out";
+	new_image.Save(output);
+	std::cout << output << std::endl;
 }
