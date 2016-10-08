@@ -3,6 +3,17 @@ import java.net.Socket;
 import java.net.InetAddress;
 import java.io.*;
 
+/*
+ * get image bufferedimage reader
+ * get output stream
+ *	new byte array output stream
+ *write image to byte array output stream
+ *get image byte size
+ *write szie to output stream
+ *flush output stream
+ */
+
+
 public class Client {
 	Socket clientSocket = null;
 	
@@ -24,6 +35,11 @@ public class Client {
 		catch(IOException e) {
 			System.out.println("Could not close");
 		}
+	}
+	
+	public boolean sendImage() {
+		BufferedImage image;
+		OutputStream outStream = new OutputStream;
 	}
 	
 	
