@@ -1,6 +1,6 @@
 #!/bin/sh -v
 
-cd ./Client
+cd ./src
 
 ../bin/encryptor
 ../bin/decryptor

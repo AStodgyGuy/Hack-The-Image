@@ -1,2 +1,0 @@
-Server responsabilities:
-Securely exchange keys between parts (use diffie hellman)

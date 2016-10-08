@@ -2,7 +2,7 @@
 
 # ./compile
 
-cd ./Client
+cd ./src
 javac userInterface.java Client.java
 
 ../bin/server &

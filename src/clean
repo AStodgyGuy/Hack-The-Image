@@ -4,6 +4,6 @@ make clean
 
 rm -rvf bin/
 
-for i in Makefile CMakeFiles CMakeCache.txt cmake_install.cmake CTestTestfile.cmake Testing; do
+for i in Makefile CMakeFiles CMakeCache.txt cmake_install.cmake CTestTestfile.cmake Testing "*.class"; do
   find . -name "$i" -exec rm  -rvf {} \;
 done

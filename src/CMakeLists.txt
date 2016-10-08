@@ -15,4 +15,4 @@ set(CMAKE_MODULE_PATH ${HACK_ROOT}/cmodules)
 set(CMAKE_CXX_FLAGS "-std=c++1y -O3")
 
 add_subdirectory(./lib)
-add_subdirectory(./Client)
+add_subdirectory(./src)
