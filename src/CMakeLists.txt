@@ -9,6 +9,6 @@ set(HACK_INCLUDE ${HACK_ROOT}/include)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${HACK_ROOT}/bin)
 set(CMAKE_MODULE_PATH ${HACK_ROOT}/cmodules)
 
-set(CMAKE_CXX_FLAGS "-std=c++14 -O3")
+set(CMAKE_CXX_FLAGS "-std=c++1y -O3")
 
 add_subdirectory(./lib)
