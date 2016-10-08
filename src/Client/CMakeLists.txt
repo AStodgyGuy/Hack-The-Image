@@ -6,17 +6,8 @@ include_directories(
 
 project(cryptors)
 
-file(
-	GLOB ENC_SRCS
-	encryptor.cpp
-)
-
-file(
-	GLOB DEC_SRCS
-	decryptor.cpp
-)
-
-add_executable(encryptor ${ENC_SRCS})
-add_executable(decryptor ${ENC_SRCS})
+add_executable(encryptor encryptor.cpp)
+add_executable(decryptor decryptor.cpp)
+add_executable(server Server.cpp)
 target_link_libraries(encryptor giacrypt imgface)
 target_link_libraries(decryptor giacrypt imgface)

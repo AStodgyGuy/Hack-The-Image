@@ -1,8 +1,10 @@
-#!/bin/sh
+#!/bin/sh -v
 
-./compile
+# ./compile
 
 cd ./Client
 javac userInterface.java Client.java
-java userInterface | ../bin/encryptor | java Client 10000 send
-java Client 10001 receive | ./bin/decryptor
+../bin/server &
+java userInterface > data
+cat data | ../bin/encryptor | java Client 10000 send
+java Client 10001 receive | ../bin/decryptor

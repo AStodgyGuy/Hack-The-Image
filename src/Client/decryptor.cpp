@@ -11,6 +11,7 @@ int main() {
 	Image img("inshot.png");
 
 	std::string msg = img.DecryptMessage();
+    AES aes;
 	msg = aes.Decrypt(msg, "012345678912345");
 	std::cout << msg << std::endl;
 }
