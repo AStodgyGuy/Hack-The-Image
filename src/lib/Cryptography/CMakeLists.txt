@@ -10,6 +10,6 @@ file(GLOB
 )
 
 add_library(giacrypt STATIC ${GIACRYPT_SRC})
-include_directories(. ${GMP_INCLUDE_DIR} ${CRYPTOPP_INCLUDE_DIR})
+include_directories(. ${HACK_INCLUDE} ${GMP_INCLUDE_DIR} ${CRYPTOPP_INCLUDE_DIR})
 
 target_link_libraries(giacrypt ${GMPXX_LIBRARIES} ${CRYPTOPP_LIBRARIES})

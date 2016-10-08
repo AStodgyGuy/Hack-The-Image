@@ -2,7 +2,7 @@
 
 make clean
 
-rm -rvf include/*
+rm -rvf bin/
 
 for i in Makefile CMakeFiles CMakeCache.txt cmake_install.cmake CTestTestfile.cmake Testing; do
   find . -name "$i" -exec rm  -rvf {} \;
