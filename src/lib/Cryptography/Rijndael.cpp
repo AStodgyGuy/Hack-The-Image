@@ -2,10 +2,15 @@
 //Rijndael.cpp
 
 #include <cstring>
-#include <exception>
 #include "Rijndael.h"
 
-#define exception(x) std::exception()
+#include <iostream>
+
+exception_reporter::exception_reporter(const char* err):error(err){};
+
+const char* exception_reporter::what() { std::cout << error << "\n"; return error; }
+
+#define exception(x) exception_reporter(x)
 
 const int CRijndael::sm_alog[256] =
 {

@@ -7,7 +7,19 @@
 #include <exception>
 #include <cstring>
 
-#define exception(x) exception()
+
+class exception_reporter : public std::exception
+{
+private:
+    const char* error;
+public:
+    exception_reporter(const char* msg);
+
+    const char* what();
+};
+
+
+
 
 using namespace std;
 
@@ -79,7 +91,7 @@ private:
 	void Xor(char* buff, char const* chain)
 	{
 		if(false==m_bKeyInit)
-			throw exception(sm_szErrorMsg1);
+			throw exception_reporter(sm_szErrorMsg1);
 		for(int i=0; i<m_blockSize; i++)
 			*(buff++) ^= *(chain++);	
 	}
@@ -115,7 +127,7 @@ public:
 	int GetKeyLength()
 	{
 		if(false==m_bKeyInit)
-			throw exception(sm_szErrorMsg1);
+			throw exception_reporter(sm_szErrorMsg1);
 		return m_keylength;
 	}
 
@@ -123,7 +135,7 @@ public:
 	int	GetBlockSize()
 	{
 		if(false==m_bKeyInit)
-			throw exception(sm_szErrorMsg1);
+			throw exception_reporter(sm_szErrorMsg1);
 		return m_blockSize;
 	}
 	
@@ -131,7 +143,7 @@ public:
 	int GetRounds()
 	{
 		if(false==m_bKeyInit)
-			throw exception(sm_szErrorMsg1);
+			throw exception_reporter(sm_szErrorMsg1);
 		return m_iROUNDS;
 	}
 
