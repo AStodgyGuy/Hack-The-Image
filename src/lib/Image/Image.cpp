@@ -33,28 +33,22 @@ void Image::EncryptMessage(std::string msg) {
 }
 
 std::string Image::DecryptMessage() {
-	size_t size = (cimage.width() * cimage.height()) / CHAR_S;
-	char *data = (char *)malloc(size + 1);
-	memset(data, 0x00, size);
+	std::string str;
+	const size_t size = (cimage.width() * cimage.height()) / CHAR_S;
+	str.reserve(size);
 	for(size_t i = 0; i < size; ++i) {
+		str += '\0';
 		for(int x = 0; x < CHAR_S; ++x) {
-			char &c = data[i];
+			char &c = str[i];
 			c |= (cimage[i * CHAR_S + x] & 1) << x;
 		}
 	}
-	data[size] = 0x00;
-	for(size_t i = 0; i < size - TERMINATOR.length(); ++i) {
-		if(!strcmp(TERMINATOR.c_str(), &data[i])) {
-			size = i;
-			break;
+	for(size_t i = 0; i < str.length() - TERMINATOR.length() - 1; ++i) {
+		if(TERMINATOR == str.substr(i, TERMINATOR.length())) {
+			return str.substr(0, i);
 		}
 	}
-	std::string msg;
-	msg.reserve(size);
-	for(size_t i = 0; i < size; ++i)
-		msg[i] = data[i];
-	free(data);
-	return msg;
+	throw new std::runtime_error("no encrypted message found");
 }
 
 
