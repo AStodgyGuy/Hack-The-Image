@@ -1,32 +1,45 @@
 import java.lang.Object;
 import java.lang.Exception.*;
 import javax.swing.*;
+import javax.imageio.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.net.InetAddress;
 import java.io.*;
 
 public class userInterface extends JFrame {
- 
 	
-	
+	private String URL;
+	private JButton BUT_ChooseFile;
+    private JButton BUT_Send;
+    private JButton BUT_Switch;
+    private JButton BUT_Webcam;
+    private JTextField TF_ReceiverIP;
+    private JTextField TF_UserIP;
+    private JTextField TF_UserMessage;
+    private JLabel jLabel1;
+    private JLabel jLabel2;
+    private JLabel jLabel3;
+    private JLabel jLabel4;
+
 	//UI code
 	@SuppressWarnings("unchecked")
 	public void initComponents() {
 
-        JLabel jLabel1 = new javax.swing.JLabel();
-        JLabel jLabel2 = new javax.swing.JLabel();
-        JLabel jLabel3 = new javax.swing.JLabel();
-        JLabel jLabel4 = new javax.swing.JLabel();
-        JTextField TF_UserIP = new javax.swing.JTextField();
-        JTextField TF_ReceiverIP = new javax.swing.JTextField();
-        JTextField TF_UserMessage = new javax.swing.JTextField();
-        JButton BUT_ChooseFile = new javax.swing.JButton();
-        JButton BUT_Webcam = new javax.swing.JButton();
-        JButton BUT_Send = new javax.swing.JButton();
-        JButton BUT_Switch = new javax.swing.JButton();
+		JLabel jLabel1 = new JLabel();
+		JLabel jLabel2 = new JLabel();
+        JLabel jLabel3 = new JLabel();
+        JLabel jLabel4 = new JLabel();
+        JTextField TF_UserIP = new JTextField();
+        JTextField TF_ReceiverIP = new JTextField();
+        JTextField TF_UserMessage = new JTextField();
+        JButton BUT_ChooseFile = new JButton();
+        
+        JButton BUT_Webcam = new JButton();
+        JButton BUT_Send = new JButton();
+        JButton BUT_Switch = new JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Your IP:");
 
@@ -112,6 +125,11 @@ public class userInterface extends JFrame {
         );
 
         TF_UserIP.setEditable(false);
+        BUT_ChooseFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BUT_ChooseFileActionPerformed(evt);
+            }
+        });
         
         pack();
     }
@@ -121,17 +139,27 @@ public class userInterface extends JFrame {
 		initComponents();
 	}
 	
+	
+	
 	//chooses file
-	BUT_ChooseFile.addActionListener(new ActionListener() {	
-		public void actionPerformed (ActionEvent e) {
-			BufferedImage img = null;
-			try {
-			    img = ImageIO.read(new File("strawberry.jpg"));
-			} catch (IOException event) {
-				System.out.println("Not a valid file")
-			}
+	public void BUT_ChooseFileActionPerformed(ActionEvent evt) {
+		
+		JFileChooser fc = new JFileChooser();
+		JButton open = new JButton();
+
+		fc.setCurrentDirectory(new java.io.File("home/"));
+		fc.setDialogTitle("Choose file");
+		fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		if (fc.showOpenDialog(open) == JFileChooser.APPROVE_OPTION) {
+			//
 		}
-	});
+		
+		URL = fc.getSelectedFile().getAbsolutePath();
+	}
+
+	public String GetURL() {
+		return URL;
+	}
 	
 		
 
