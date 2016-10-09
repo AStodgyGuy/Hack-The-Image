@@ -21,7 +21,7 @@ void Image::EncryptMessage(std::string msg) {
 	msg += TERMINATOR;
 
 	if(cimage.width() * cimage.height() < msg.length() * CHAR_S)
-		throw new std::runtime_error("error: message length exceeds number of pixels.");
+		throw std::runtime_error("error: message length exceeds number of pixels.");
 
 	for(size_t i = 0; i < msg.length(); ++i) {
 		for(size_t x = 0; x < CHAR_S; ++x) {
@@ -43,12 +43,10 @@ std::string Image::DecryptMessage() {
 			c |= (cimage[i * CHAR_S + x] & 1) << x;
 		}
 	}
-	for(size_t i = 0; i < str.length() - TERMINATOR.length() - 1; ++i) {
-		if(TERMINATOR == str.substr(i, TERMINATOR.length())) {
+	for(size_t i = 0; i < str.length() - TERMINATOR.length() - 1; ++i)
+		if(TERMINATOR == str.substr(i, TERMINATOR.length()))
 			return str.substr(0, i);
-		}
-	}
-	throw new std::runtime_error("no encrypted message found");
+	throw std::runtime_error("no encrypted message found");
 }
 
 
@@ -58,9 +56,8 @@ void Image::Save(const std::string &new_filename) {
 
 void Image::Print() {
 	for(int i = 0; i < cimage.height(); ++i) {
-		for(int j = 0; j < cimage.width(); ++j) {
+		for(int j = 0; j < cimage.width(); ++j)
 			printf("%X ", cimage[i * cimage.width() + j]);
-		}
 		printf("\n");
 	}
 }

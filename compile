@@ -1,6 +1,6 @@
 #!/bin/sh
 
 ./clean
-javac Client/userInterface.java
+javac ./src/*.java
 cmake .
 make
